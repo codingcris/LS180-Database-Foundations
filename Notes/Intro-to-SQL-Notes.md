@@ -7,13 +7,14 @@ Tools that allow us to access data are invaluable today in all areas of life, wh
 As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
 
 - Spreadsheets are a simple way of structuring data. They are analogous to a database.
-|||
-|-----------|--------|
-|spreadsheet|database|
-|worksheet  |table   |
+|                 |              |
+|-----------------|--------------|
+|spreadsheet      |database      |
+|worksheet        |table         |
 |worksheet column | table column |
-|worksheet row | table row|
-	- In a corporate setting, many editors may have acccess to a spreadsheet, and this can be the cause of problems such as formatting of data, ability to search through the data, typos, duplicate data etc. For this setting, a *relational database management system* is preferred.
+|worksheet row    | table row    |
+
+* In a corporate setting, many editors may have acccess to a spreadsheet, and this can be the cause of problems such as formatting of data, ability to search through the data, typos, duplicate data etc. For this setting, a *relational database management system* is preferred.
 
 ## Relational Database Management Systems
 - **relational database:** A database organized according to the relational model of data. The relational model of data defines a set of relations (a set of individual but related data entries analogous to tables) and the connections between them to specify how data stored in them can interact.
@@ -43,17 +44,20 @@ Structured Query Language - The programming language used to communicate with a 
 * ```\d``` followed by the name of a table allows us to see detailed information on the table's columns.
 
 ### SQL Statements
-	Commands issues to the database using SQL syntax. Must always end with a semicolon and can span multiple lines.
+	Commands issued to the database using SQL syntax. Must always end with a semicolon and can span multiple lines.
 * ```SELECT``` statements are used to retrieve data from a database.
+* ```CREATE TABLE``` statement used to create a table in the database
+* ```DROP TABLE``` statement used to delete a table in the database.
+* etc.
 
 ## SQL Sub-languages
-	SQL can be thought of as comprised of 3 separate sub-languages all concerned with a specific aspect of manipulating or interacting with a database.
+SQL can be thought of as comprised of 3 separate sub-languages all concerned with a specific aspect of manipulating or interacting with a database.
 1. **DDL: Data Definition Language:** used to define the structure of a database and the tables and columns within it.
 2. **DML: Data Manipulation Language:** used to retrieve or modify data stored in database.
 3. **DCL: Data Control Language:** used to determine what various users are allowed to do when interacting with a database.
 
 ## Data v.s. Schema
-	The relationship between data and schema is what gives a database power.
+The relationship between data and schema is what gives a database power.
     
 * Schema is concerned with the structure of data within a database (column and row names, table names, data types within each column and row, etc.) 
 * Data is concerned with the actual values that go into each row and column of a database. 
@@ -96,14 +100,14 @@ CREATE TABLE table_name (
 
 |Column Data Type|Purpose|
 |----------------|-------|
-|serial| Serial data types are self incrementing unique integers which must not be null. |
-|char(N)| Strings up to N characters in length. If the string is less than N characters long, spaces are used to fill the remanining characters.|
-|varchar(N)|Strings up to N characters in length. Data that contains less than N characters will not be filled in with spaces.|
-|boolean| "true" or "false"|
-|integer or INT| Whole numbers|
+|serial          | Serial data types are self incrementing unique integers which must not be null.|
+|char(N)         | Strings up to N characters in length. If the string is less than N characters long, spaces are used to fill the remanining characters.|
+|varchar(N)      |Strings up to N characters in length. Data that contains less than N characters will not be filled in with spaces.|
+|boolean         | "true" or "false"|
+|integer or INT  | Whole numbers|
 |decimal(precision, scale)|Decimal type takes two arguments: **1. Precision:** *total number of digits on left and right side of decimal* **2. Scale:** *number of digits to the right of the decimal.*|
-|timestamp| Represents the data and time in simple YYYY-M-D HH:MM:SS format|
-|date| Represents the date in YYYY-M-D format without time.|
+|timestamp       | Represents the data and time in simple YYYY-M-D HH:MM:SS format|
+|date            | Represents the date in YYYY-M-D format without time.|
 
 #### Keys and Constraints
 * Constraints are optional.
