@@ -1,10 +1,10 @@
 # Introduction to SQL
 
 ## The Importance of Data
-	Tools that allow us to access data are invaluable today in all areas of life, whether it be in a field such as baseball scouting or genetic science. Data helps us to make decisions from the study and interpretation of data, but in order to interpret data effectively, we must structure it.
+Tools that allow us to access data are invaluable today in all areas of life, whether it be in a field such as baseball scouting or genetic science. Data helps us to make decisions from the study and interpretation of data, but in order to interpret data effectively, we must structure it.
 
-##Structured Data
-	As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
+## Structured Data
+As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
 
 - Spreadsheets are a simple way of structuring data. They are analogous to a database.
 |||
@@ -20,8 +20,8 @@
 - **relational database management system:** software that allows a user to interact with a database through commands falling under certain conventions or standards. SQL is the underlying language to all rdms'.
 EX: SQLite, MSSQL, PostgreSQL, MySQL.
 
-##SQL
-	Structured Query Language - The programming language used to communicate with a relational database.
+## SQL
+Structured Query Language - The programming language used to communicate with a relational database.
 * SQL allows you to use simple English sentences to insert, update, delete, or select large amounts of data.
 * SQL is declerative - you specify what needs to be done, and the implementation is handled under the hood by the rdms.
 
@@ -68,7 +68,7 @@ EX: SQLite, MSSQL, PostgreSQL, MySQL.
 * We can create a database using the ```createdb``` command from terminal, or using the SQL command ```CREATE DATABASE``` from the psql console with mandatory argument for the database name.
 * Database names should be descriptive and snake_case by convention.
 
-###Deleting Databases
+### Deleting Databases
 * We can delete a database using the ```dropdb``` command from terminal which is a wrapper for the SQL command ```DROP DATABASE``` followed by the mandatory database_name argument.
 * These functions are permanent. Use with caution.
 
@@ -88,6 +88,7 @@ CREATE TABLE table_name (
   .
   constraints
 );```
+
 *  Constraints may be placed at the column or table level.
 
 #### Column Data Types
@@ -112,11 +113,11 @@ CREATE TABLE table_name (
 	* NOT NULL- specifies that the column must contain some data rather than be empty.
 	* UNIQUE- prevents duplicate values from being entered into the column.
 
-###Altering Tables
+### Altering Tables
 
 * ```ALTER TABLE``` is used to change the schema of a table, not the data
 * Altering tables follows the syntax: ```ALTER TABLE table_name HOW TO ALTER TABLE additional_arguments ```
-#####Renaming a table
+##### Renaming a table
 	```SQL
    ALTER TABLE table_name 
    RENAME TO new_name;```
