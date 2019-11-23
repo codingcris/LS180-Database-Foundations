@@ -7,6 +7,7 @@ Tools that allow us to access data are invaluable today in all areas of life, wh
 As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
 
 - Spreadsheets are a simple way of structuring data. They are analogous to a database.
+
 |                 |              |
 |-----------------|--------------|
 |spreadsheet      |database      |
