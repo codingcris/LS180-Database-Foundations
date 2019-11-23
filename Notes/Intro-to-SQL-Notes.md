@@ -98,7 +98,9 @@ CREATE TABLE table_name (
 *  Constraints may be placed at the column or table level.
 
 #### Column Data Types
-* Data types protect our tables from incorrect data being entered 
+* Data types protect our tables from incorrect data being entered
+
+*some of the below data types are part of postgres and do not exist in SQL. For example the serial data type would be an integer type with NOT NULL, UNIQUE, and NEXTVAL flags set in SQL*
 
 |Column Data Type|Purpose|
 |----------------|-------|
