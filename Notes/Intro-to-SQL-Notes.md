@@ -91,7 +91,8 @@ CREATE TABLE table_name (
   .
   .
   constraints
-);```
+);
+```
 
 *  Constraints may be placed at the column or table level.
 
@@ -122,8 +123,9 @@ CREATE TABLE table_name (
 * ```ALTER TABLE``` is used to change the schema of a table, not the data
 * Altering tables follows the syntax: ```ALTER TABLE table_name HOW TO ALTER TABLE additional_arguments ```
 ##### Renaming a table
-	```SQL
-   ALTER TABLE table_name 
-   RENAME TO new_name;```
+```SQL
+ALTER TABLE table_name 
+RENAME TO new_name;
+```
 
 
