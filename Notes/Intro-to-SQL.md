@@ -91,7 +91,8 @@ CREATE TABLE table_name (
   .
   .
   constraints
-);```
+);
+```
 
 *  Constraints may be placed at the column or table level.
 
@@ -332,7 +333,7 @@ returns only unique full names from the users table.
 ### Group By
 	Allows for the grouping of data by some data in some column or the results of a function.
     
-   * Ex: * Groups the data by the values in the enabled column and returns the counts of both groups*
+   * Ex: * Groups the data by the values in enabled column and returns the counts of both groups*
 ```
 sql_book=# SELECT enabled, count(id) FROM users GROUP BY enabled;
  enabled | count
