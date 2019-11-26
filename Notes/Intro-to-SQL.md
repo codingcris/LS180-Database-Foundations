@@ -304,6 +304,7 @@ returns only unique full names from the users table.
 	Functions which may operate on string data types
 
 * Ex:
+
 | Function | Example | Notes|
 |--------|--------|--------|
 | length | SELECT length(full_name) FROM USERS; |This returns the length of every user's name. You could also use length in a WHERE clause to filter data based on name length.|
@@ -313,6 +314,7 @@ returns only unique full names from the users table.
 	Functions which operate mostly on timestamp/date data.
 
 * Ex:
+
 | Function | Example | Notes |
 |--------|--------|--------|
 | date_part | SELECT full_name, date_part('year', last_login) FROM users; | date_part allow us to view a table that only contains a part of a user's timestamp that we specify. The above query allows us to see each user's name along with the year of the last_login date. Sometimes having date/time data down to the second isn't needed|
@@ -322,6 +324,7 @@ returns only unique full names from the users table.
 	Functions which perform aggregation- returning a single result from a set of input data
 
 * Ex:
+
 | Function | Example | Notes |
 |--------|--------|-|
 |count| SELECT count(id) FROM users; | Returns the number of values in the column passed in as an argument. This type of function can be very useful depending on the context. We could find the number of users who have enabled account, or even how many users have certain last names if we use the above statement with other clauses. |
