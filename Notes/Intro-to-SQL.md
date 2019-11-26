@@ -1,13 +1,12 @@
 # Introduction to SQL
 
 ## The Importance of Data
-Tools that allow us to access data are invaluable today in all areas of life, whether it be in a field such as baseball scouting or genetic science. Data helps us to make decisions from the study and interpretation of data, but in order to interpret data effectively, we must structure it.
+Tools that allow us to access data are invaluable today in all areas of life, whether it be in a field such as baseball scouting or genetic science. We make decisions from the study and interpretation of data but in order to interpret data effectively we must structure it.
 
 ## Structured Data
 As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
 
 - Spreadsheets are a simple way of structuring data. They are analogous to a database.
-
 |                 |              |
 |-----------------|--------------|
 |spreadsheet      |database      |
@@ -25,7 +24,7 @@ EX: SQLite, MSSQL, PostgreSQL, MySQL.
 ## SQL
 Structured Query Language - The programming language used to communicate with a relational database.
 * SQL allows you to use simple English sentences to insert, update, delete, or select large amounts of data.
-* SQL is declerative - you specify what needs to be done, and the implementation is handled under the hood by the rdms.
+* SQL is declarative - you specify what needs to be done, and the implementation is handled under the hood by the rdms.
 
 ## The psql Console
 	psql is a client application that allows us to interact with a PostgreSQL database from terminal.
@@ -92,15 +91,12 @@ CREATE TABLE table_name (
   .
   .
   constraints
-);
-```
+);```
 
 *  Constraints may be placed at the column or table level.
 
-#### Column Data Types
-* Data types protect our tables from incorrect data being entered
-
-*some of the below data types are part of postgres and do not exist in SQL. For example the serial data type would be an integer type with NOT NULL, UNIQUE, and NEXTVAL flags set in SQL*
+#### PostgreSQL Column Data Types
+* Data types protect our tables from incorrect data being entered 
 
 |Column Data Type|Purpose|
 |----------------|-------|
@@ -120,15 +116,228 @@ CREATE TABLE table_name (
 	* DEFAULT- takes a value that will be placed in the column should the value entered in the column be empty.
 	* NOT NULL- specifies that the column must contain some data rather than be empty.
 	* UNIQUE- prevents duplicate values from being entered into the column.
-
+	* CHECK - constraint that provides a condition that data entered must match in order to be valid.
+	
 ### Altering Tables
 
 * ```ALTER TABLE``` is used to change the schema of a table, not the data
 * Altering tables follows the syntax: ```ALTER TABLE table_name HOW TO ALTER TABLE additional_arguments ```
 ##### Renaming a table
+	```SQL
+   ALTER TABLE table_name 
+   RENAME TO new_name;```
+##### Deleteing a table
+warning: ***irreversible***
 ```SQL
-ALTER TABLE table_name 
-RENAME TO new_name;
+DROP TABLE table_name
+```
+##### Adding a column
+```SQL
+ALTER TABLE table_name
+ADD COLUMN column_name data_type constraints;
+```
+##### Removing a column
+warning: ***irreversible***
+```SQL
+ALTER TABLE table_name
+DROP COLUMN column_name;
+```
+##### Renaming a column
+	```SQL
+    ALTER TABLE table_name
+    RENAME COLUMN column_name TO new_name;
+    ```
+##### Changing column data type
+	```SQL
+    ALTER TABLE table_name
+    ALTER COLUMN column_name TYPE data_type;
+    ```
+##### Adding a constraint
+* Most of the time, rather than modifying constraints, we will be removing and adding constraints. 
+* Some constraints are column specific. They can be added by:
+```SQL
+ALTER TABLE table_name
+ALTER COLUMN column_name SET constraint_name constraint_clause;
+```
+* Some constraints are table specific and can be added by:
+```SQL
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name constraint_clause;
+```
+##### Removing a constraint
+* Column constraints can be removed by:
+```SQL
+ALTER TABLE table_name
+ALTER COLUMN column_name DROP CONSTRAINT constraint_name;
+```
+* Table constraints can be removed by:
+```SQL
+ALTER TABLE table_name
+DROP CONSTRAINT constraint_name;
+```
+##### Removing a default
+```SQL
+ALTER TABLE table_name
+ALTER COLUMN column_name DROP DEFAULT;
 ```
 
+## Data and DML
+	data manipulation language (DML) consists of the SQL statements that allow us to access and manipulate data in the database.
 
+* Four types of DML statements:
+	1. Insert (adds data to the database)
+	2. Select (a.k.a. queries, provide access to existing data)
+	3. Update (update existing data)
+	4. Delete (deletes existing data from database)
+
+### Insertion Statement Syntax
+* General insertion statement syntax:
+```SQL
+INSERT INTO table_name(column1_name, column2_name ...)
+	VALUES(data_for_column1, data_for_column2 ...);
+```
+
+* Insertion statements require:
+	1. table name
+	2. name of columns we are inserting data into
+		* If no columns are specified, value order must match the schema of the table
+		* If some columns are specified, unspecified columns will recieve a null or default value.
+	3. The values we wish to store in the columns listed directly after the table name.
+		* should be ordered according to #2 listed columns or if none  were listed,  according to the table schema.
+
+* Insert statements add rows to our database. Each row is an individual entity analogous to a record.
+* Multiple rows can be added in one insert statement by comma separating values i.e.:
+```SQL
+INSERT INTO table_name(column1_name, ...)
+	VALUES(row_1_column_1, row1_column_... ),
+    	  (row_2_column_1, row2_column_...),
+           ...;
+```
+
+### Select Statements
+* General select statement syntax:
+```SQL
+SELECT [*, (column_name, column2_name, ...)]
+FROM table_name WHERE (condition);
+```
+* Select statements are formed by identifiers( words that identify columns/tables) and keywords (SELECT, FROM , WHERE, etc.)
+	*  If  an identifier is the same as a keyword, we must surround it in double quotes in order to prevent an error.
+
+#### Order By
+* ```ORDER BY``` example syntax:
+```SQL
+SELECT * FROM table_name
+WHERE some_condition
+ORDER BY column_name DESC
+```
+* Like a ```WHERE``` clause, an ```ORDER BY``` clause is used to filter results.
+	* rather than a condition, ```ORDER BY``` clauses take a column(or multiple comma separated columns) to filter query results by a sorting order.
+* ```ORDER BY``` sorts query results by ascending order as default, but this can be changed by specifying ```DESC``` in the clause.
+* Specifying multiple columns to sort by creates sorting sublevels.
+
+#### Operators
+	Typically used within a WHERE clause, operators make our queries more powerful.
+* Operators can be placed under 3 groups:
+	1. Comparison
+	2. Logical
+	3. String Matching
+
+##### Comparison Operators
+	Operators used to compare two values
+| Operator | Description |
+|--------|--------|
+|>=      |greater than or equal|
+|<=|less than or equal|
+|<> or !=| not equal|
+|=| is equal|
+|>| greater than|
+|<| less than|
+
+* Includes comparison predicates i.e. ```IS NULL```, ```NOT NULL```, ```BETWEEN```, ```NOT BETWEEN```
+
+##### Logical Operators
+	Used to provide more flexibility to our conditions
+
+* Three logical operators:
+	1. ```AND```
+	2. ```OR```
+	3.  ```NOT```
+
+##### String Matching Operators
+	Used only with data that is a string, looks to match a column's value to a string matching expression
+
+* ```LIKE``` operator - used to match against a string.
+	* Example Syntax:  
+	```SQL
+    SELECT * FROM users WHERE last_name LIKE "%Smith"
+    ```
+    	* ```%``` wildcard matches any number of characters
+    	* ```_``` wildcard matches a sing character.
+
+* ```SIMILAR TO``` operator - used to match against a regexp
+
+#### Limit and Offset
+	These filtering criteria are the basis for pagination - the user experience feature of dividing data between different pages.
+
+* **Limit:** Determines the amount of rows/records that a query returns.
+* **Offset:** Determines the start of query results displayed based on the distance from the first query result.
+
+#### Distinct
+	Keyword used to filter query results for unique values only.
+
+* Ex:
+```SQL
+	SELECT DISTINCT full_name FROM users;
+```
+returns only unique full names from the users table.
+
+### Functions
+	Commands that may be called on data to transform data before it is returned or to return information on data.
+
+* Can be grouped into these types of functions:
+	* String
+	* Date/Time
+	* Aggregate 
+
+#### String Functions
+	Functions which may operate on string data types
+
+* Ex:
+| Function | Example | Notes|
+|--------|--------|--------|
+| length | SELECT length(full_name) FROM USERS; |This returns the length of every user's name. You could also use length in a WHERE clause to filter data based on name length.|
+|trim|SELECT trim(leading ' ' from full_name) FROM users;|If any of the data in our full_name column had a space in front of the name, using the trim function like this would remove that leading space.
+
+#### Date/Time Functions
+	Functions which operate mostly on timestamp/date data.
+
+* Ex:
+| Function | Example | Notes |
+|--------|--------|--------|
+| date_part | SELECT full_name, date_part('year', last_login) FROM users; | date_part allow us to view a table that only contains a part of a user's timestamp that we specify. The above query allows us to see each user's name along with the year of the last_login date. Sometimes having date/time data down to the second isn't needed|
+| age | SELECT full_name, age(last_login) FROM users; | The age function, when passed a single timestamp as an argument, calculates the time elapsed between that timestamp and the current time. The above query allows us to see how long it has been since each user last logged in. |
+
+#### Aggregate Functions
+	Functions which perform aggregation- returning a single result from a set of input data
+
+* Ex:
+| Function | Example | Notes |
+|--------|--------|-|
+|count| SELECT count(id) FROM users; | Returns the number of values in the column passed in as an argument. This type of function can be very useful depending on the context. We could find the number of users who have enabled account, or even how many users have certain last names if we use the above statement with other clauses. |
+| sum | SELECT sum(id) FROM users; | Not to be confused with count. This sums numeric type values for all of the selected rows and returns the total. |
+| min | SELECT min(last_login) FROM users; | This returns the lowest value in a column for all of the selected rows. Can be used with various data types such as numeric, date/ time, and string. |
+| max | SELECT max(last_login) FROM users; | This returns the highest value in a column for all of the selected rows. Can be used with various data types such as numeric, date/ time, and string. |
+| avg | SELECT avg(id) FROM users; | Returns the average (arithmetic mean) of numeric type values for all of the selected rows. |
+
+### Group By
+	Allows for the grouping of data by some data in some column or the results of a function.
+    
+   * Ex: * Groups the data by the values in the enabled column and returns the counts of both groups*
+```
+sql_book=# SELECT enabled, count(id) FROM users GROUP BY enabled;
+ enabled | count
+---------+-------
+ f       |     1
+ t       |     4
+(2 rows)
+```
