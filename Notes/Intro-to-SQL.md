@@ -7,6 +7,7 @@ Tools that allow us to access data are invaluable today in all areas of life, wh
 As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
 
 - Spreadsheets are a simple way of structuring data. They are analogous to a database.
+
 |                 |              |
 |-----------------|--------------|
 |spreadsheet      |database      |
@@ -64,7 +65,7 @@ The relationship between data and schema is what gives a database power.
 * SQL's DDL sub-language is used to manipulate schema. 
 * SQL's DML sub-language is used to manipulate data.
 
-** Without schema, data would have no structure. Without data, we would simply have column and row names with no values. Data and schema together allow us to interact with databases in powerful ways. **
+**Without schema, data would have no structure. Without data, we would simply have column and row names with no values. Data and schema together allow us to interact with databases in powerful ways.**
 
 ## SQL Forming and Deleting Databases
 
@@ -124,10 +125,11 @@ CREATE TABLE table_name (
 * ```ALTER TABLE``` is used to change the schema of a table, not the data
 * Altering tables follows the syntax: ```ALTER TABLE table_name HOW TO ALTER TABLE additional_arguments ```
 ##### Renaming a table
-	```SQL
-   ALTER TABLE table_name 
-   RENAME TO new_name;```
-##### Deleteing a table
+```SQL
+ALTER TABLE table_name 
+RENAME TO new_name;
+```
+##### Deleting a table
 warning: ***irreversible***
 ```SQL
 DROP TABLE table_name
@@ -144,15 +146,15 @@ ALTER TABLE table_name
 DROP COLUMN column_name;
 ```
 ##### Renaming a column
-	```SQL
-    ALTER TABLE table_name
-    RENAME COLUMN column_name TO new_name;
-    ```
+```SQL
+ALTER TABLE table_name
+RENAME COLUMN column_name TO new_name;
+```
 ##### Changing column data type
-	```SQL
-    ALTER TABLE table_name
-    ALTER COLUMN column_name TYPE data_type;
-    ```
+```SQL
+ALTER TABLE table_name
+ALTER COLUMN column_name TYPE data_type;
+```
 ##### Adding a constraint
 * Most of the time, rather than modifying constraints, we will be removing and adding constraints. 
 * Some constraints are column specific. They can be added by:
@@ -336,7 +338,7 @@ returns only unique full names from the users table.
 ### Group By
 	Allows for the grouping of data by some data in some column or the results of a function.
     
-   * Ex: * Groups the data by the values in enabled column and returns the counts of both groups*
+   * Ex: *Groups the data by the values in enabled column and returns the counts of both groups*
 ```
 sql_book=# SELECT enabled, count(id) FROM users GROUP BY enabled;
  enabled | count
