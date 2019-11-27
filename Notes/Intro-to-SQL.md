@@ -7,6 +7,7 @@ Tools that allow us to access data are invaluable today in all areas of life, wh
 As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
 
 - Spreadsheets are a simple way of structuring data. They are analogous to a database.
+
 |                 |              |
 |-----------------|--------------|
 |spreadsheet      |database      |
@@ -64,7 +65,7 @@ The relationship between data and schema is what gives a database power.
 * SQL's DDL sub-language is used to manipulate schema. 
 * SQL's DML sub-language is used to manipulate data.
 
-** Without schema, data would have no structure. Without data, we would simply have column and row names with no values. Data and schema together allow us to interact with databases in powerful ways. **
+**Without schema, data would have no structure. Without data, we would simply have column and row names with no values. Data and schema together allow us to interact with databases in powerful ways.**
 
 ## SQL Forming and Deleting Databases
 
@@ -124,10 +125,11 @@ CREATE TABLE table_name (
 * ```ALTER TABLE``` is used to change the schema of a table, not the data
 * Altering tables follows the syntax: ```ALTER TABLE table_name HOW TO ALTER TABLE additional_arguments ```
 ##### Renaming a table
-	```SQL
-   ALTER TABLE table_name 
-   RENAME TO new_name;```
-##### Deleteing a table
+```SQL
+ALTER TABLE table_name 
+RENAME TO new_name;
+```
+##### Deleting a table
 warning: ***irreversible***
 ```SQL
 DROP TABLE table_name
@@ -144,15 +146,15 @@ ALTER TABLE table_name
 DROP COLUMN column_name;
 ```
 ##### Renaming a column
-	```SQL
-    ALTER TABLE table_name
-    RENAME COLUMN column_name TO new_name;
-    ```
+```SQL
+ALTER TABLE table_name
+RENAME COLUMN column_name TO new_name;
+```
 ##### Changing column data type
-	```SQL
-    ALTER TABLE table_name
-    ALTER COLUMN column_name TYPE data_type;
-    ```
+```SQL
+ALTER TABLE table_name
+ALTER COLUMN column_name TYPE data_type;
+```
 ##### Adding a constraint
 * Most of the time, rather than modifying constraints, we will be removing and adding constraints. 
 * Some constraints are column specific. They can be added by:
@@ -304,6 +306,7 @@ returns only unique full names from the users table.
 	Functions which may operate on string data types
 
 * Ex:
+
 | Function | Example | Notes|
 |--------|--------|--------|
 | length | SELECT length(full_name) FROM USERS; |This returns the length of every user's name. You could also use length in a WHERE clause to filter data based on name length.|
@@ -313,6 +316,7 @@ returns only unique full names from the users table.
 	Functions which operate mostly on timestamp/date data.
 
 * Ex:
+
 | Function | Example | Notes |
 |--------|--------|--------|
 | date_part | SELECT full_name, date_part('year', last_login) FROM users; | date_part allow us to view a table that only contains a part of a user's timestamp that we specify. The above query allows us to see each user's name along with the year of the last_login date. Sometimes having date/time data down to the second isn't needed|
@@ -322,6 +326,7 @@ returns only unique full names from the users table.
 	Functions which perform aggregation- returning a single result from a set of input data
 
 * Ex:
+
 | Function | Example | Notes |
 |--------|--------|-|
 |count| SELECT count(id) FROM users; | Returns the number of values in the column passed in as an argument. This type of function can be very useful depending on the context. We could find the number of users who have enabled account, or even how many users have certain last names if we use the above statement with other clauses. |
@@ -333,7 +338,7 @@ returns only unique full names from the users table.
 ### Group By
 	Allows for the grouping of data by some data in some column or the results of a function.
     
-   * Ex: * Groups the data by the values in enabled column and returns the counts of both groups*
+   * Ex: *Groups the data by the values in enabled column and returns the counts of both groups*
 ```
 sql_book=# SELECT enabled, count(id) FROM users GROUP BY enabled;
  enabled | count
@@ -369,7 +374,7 @@ DELETE FROM table_name WHERE (expression);
 * Inolves defining **entities** and **relationships** from data
 **entity**: an entity represents a major noun within our application and contains the data necessary for that noun to exist. Ex: A library application may contain multiple entitites such as: users, books, reviews, checkouts, etc.
 **relationship:** describes how an entity can interact with another entity and its data. 
-	* enity relationship diagrams(ERDs) are often used to visualize entities and relationships in database design.
+	* entity relationship diagrams(ERDs) are often used to visualize entities and relationships in database design.
 
 ### Keys
 	Used to identify a row within a table or a row from another table, keys serve as the tool for identifying data corretly. Keys must be 1. Unique and 2. NOT NULL
