@@ -7,7 +7,6 @@ Tools that allow us to access data are invaluable today in all areas of life, wh
 As datasets grow in size and complexity, it is important to structure data in a way that allows users to access and analyze the data efficiently.
 
 - Spreadsheets are a simple way of structuring data. They are analogous to a database.
-
 |                 |              |
 |-----------------|--------------|
 |spreadsheet      |database      |
@@ -65,7 +64,7 @@ The relationship between data and schema is what gives a database power.
 * SQL's DDL sub-language is used to manipulate schema. 
 * SQL's DML sub-language is used to manipulate data.
 
-**Without schema, data would have no structure. Without data, we would simply have column and row names with no values. Data and schema together allow us to interact with databases in powerful ways.**
+** Without schema, data would have no structure. Without data, we would simply have column and row names with no values. Data and schema together allow us to interact with databases in powerful ways. **
 
 ## SQL Forming and Deleting Databases
 
@@ -125,11 +124,10 @@ CREATE TABLE table_name (
 * ```ALTER TABLE``` is used to change the schema of a table, not the data
 * Altering tables follows the syntax: ```ALTER TABLE table_name HOW TO ALTER TABLE additional_arguments ```
 ##### Renaming a table
-```SQL
-ALTER TABLE table_name 
-RENAME TO new_name;
-```
-##### Deleting a table
+	```SQL
+   ALTER TABLE table_name 
+   RENAME TO new_name;```
+##### Deleteing a table
 warning: ***irreversible***
 ```SQL
 DROP TABLE table_name
@@ -146,15 +144,15 @@ ALTER TABLE table_name
 DROP COLUMN column_name;
 ```
 ##### Renaming a column
-```SQL
-ALTER TABLE table_name
-RENAME COLUMN column_name TO new_name;
-```
+	```SQL
+    ALTER TABLE table_name
+    RENAME COLUMN column_name TO new_name;
+    ```
 ##### Changing column data type
-```SQL
-ALTER TABLE table_name
-ALTER COLUMN column_name TYPE data_type;
-```
+	```SQL
+    ALTER TABLE table_name
+    ALTER COLUMN column_name TYPE data_type;
+    ```
 ##### Adding a constraint
 * Most of the time, rather than modifying constraints, we will be removing and adding constraints. 
 * Some constraints are column specific. They can be added by:
@@ -306,7 +304,6 @@ returns only unique full names from the users table.
 	Functions which may operate on string data types
 
 * Ex:
-
 | Function | Example | Notes|
 |--------|--------|--------|
 | length | SELECT length(full_name) FROM USERS; |This returns the length of every user's name. You could also use length in a WHERE clause to filter data based on name length.|
@@ -316,7 +313,6 @@ returns only unique full names from the users table.
 	Functions which operate mostly on timestamp/date data.
 
 * Ex:
-
 | Function | Example | Notes |
 |--------|--------|--------|
 | date_part | SELECT full_name, date_part('year', last_login) FROM users; | date_part allow us to view a table that only contains a part of a user's timestamp that we specify. The above query allows us to see each user's name along with the year of the last_login date. Sometimes having date/time data down to the second isn't needed|
@@ -326,7 +322,6 @@ returns only unique full names from the users table.
 	Functions which perform aggregation- returning a single result from a set of input data
 
 * Ex:
-
 | Function | Example | Notes |
 |--------|--------|-|
 |count| SELECT count(id) FROM users; | Returns the number of values in the column passed in as an argument. This type of function can be very useful depending on the context. We could find the number of users who have enabled account, or even how many users have certain last names if we use the above statement with other clauses. |
@@ -338,7 +333,7 @@ returns only unique full names from the users table.
 ### Group By
 	Allows for the grouping of data by some data in some column or the results of a function.
     
-   * Ex: *Groups the data by the values in enabled column and returns the counts of both groups*
+   * Ex: * Groups the data by the values in enabled column and returns the counts of both groups*
 ```
 sql_book=# SELECT enabled, count(id) FROM users GROUP BY enabled;
  enabled | count
@@ -347,3 +342,110 @@ sql_book=# SELECT enabled, count(id) FROM users GROUP BY enabled;
  t       |     4
 (2 rows)
 ```
+
+### Updating Data
+	An UPDATE statement targets the specified columns and the specific rows that match a WHERE clause to update the data in those rows.
+
+* General update statement syntax:
+```SQL
+UPDATE table_name SET [column_name1 = value1, ...]
+WHERE (expression);
+```
+
+### Deleting Data
+	A DELETE statement deletes all rows which match a WHERE clause from a table.
+
+* General DELETE statement systax:
+```SQL
+DELETE FROM table_name WHERE (expression);
+```
+
+## Working With Multiple Tables
+
+### Normalization
+	The process of splitting data up into different tables and creating relationships between those tables in order to remove duplication and protect data integrity. The decisions over how to split data up and the relationships between tables are the foundations of database design.
+
+### Database Design
+* Inolves defining **entities** and **relationships** from data
+**entity**: an entity represents a major noun within our application and contains the data necessary for that noun to exist. Ex: A library application may contain multiple entitites such as: users, books, reviews, checkouts, etc.
+**relationship:** describes how an entity can interact with another entity and its data. 
+	* enity relationship diagrams(ERDs) are often used to visualize entities and relationships in database design.
+
+### Keys
+	Used to identify a row within a table or a row from another table, keys serve as the tool for identifying data corretly. Keys must be 1. Unique and 2. NOT NULL
+
+#### Primary keys
+* Used to identify data *within* a table
+* Any UNIQUE and NOT NULL column may be used as a primary key, but each table must only have one primary key.
+* Most commonly, a column designated as ```id``` is used as a table's primary key.
+* Syntax for adding a primary key:
+```SQL
+ALTER TABLE table_name ADD PRIMARY KEY (column_name);
+```
+
+#### Foreign keys
+* Used to reference a column from another table
+	* A foreign key column is created in one table with a *reference* to a primary key column in another table.
+	* The value in a foreign key column must coincide with the primary key of a row in the referenced table. 
+* Syntax for adding a foreign key:
+```SQL
+FOREIGN KEY (fk_col_name) REFERENCES target_table_name (pk_col_name)
+```
+* In order to properly model the relationship between tables and implement our foreign and primary keys correctly, we should consider the type of relationship between the entities. 
+i.e.
+	* one to one (one entity instance in a table can correspond to exactly one entity instance in another table)
+	* one to many
+	* many to many 	
+
+#### Referential Integrity
+* Assures that all references point to an existing, and the correct record in a database.
+
+##### ON DELETE Clause
+* Helps maintain referential integrity.
+* If used when setting a foreign key, specifies the action taken if a referenced object is deleted from the database. We can specify different options:
+	* CASCADE - referencing object is deleted as well
+	* SET NULL - referencing object is set to null
+	* SET DEFAULT - referencing object is set to default value
+* If not set, any attempt to delete a referenced object will result in an error
+
+#### Modeling relationships
+
+##### One to One
+	primary key and foreign key of a table are the same and correspond to the primary key of the referenced table.
+
+ **From Launch School's [Intro to SQL](https://launchschool.com/books/sql/read/table_relationships#onetoone) Book:**
+
+>Example: A user can have only one address, and an address belongs to only one user.
+
+>In the database world, this sort of relationship is implemented like this: the id that is the PRIMARY KEY of the users table is used as both the FOREIGN KEY and PRIMARY KEY of the addresses table.
+
+```SQL
+/*
+one to one: User has one address
+*/
+
+CREATE TABLE addresses (
+  user_id int, -- Both a primary and foreign key
+  street varchar(30) NOT NULL,
+  city varchar(30) NOT NULL,
+  state varchar(30) NOT NULL,
+  PRIMARY KEY (user_id),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+```
+
+##### One to Many
+	A one-to-many relationship exists between two entities if an entity instance in one of the tables can be associated with multiple records (entity instances) in the other table
+
+* Unlike a one to one relationship, a one to many relationship requires that the referencing entity use a different column for primary key and foreign key
+	* This allows our foreign keys to bypass the UNIQUE requirement of our primary key so that many records may reference the same foreign entity.
+
+##### Many to Many
+	A many-to-many relationship exists between two entities if for one entity instance there may be multiple records in the other table, and vice versa.
+
+*Example from Lunch School's [Intro to SQL](https://launchschool.com/books/sql/read/table_relationships#manytomany) book:*
+
+> A user can check out many books. A book can be checked out by many users (over time).
+
+>In order to implement this sort of relationship we need to introduce a third, cross-reference, table. This table holds the relationship between the two entities, by having two FOREIGN KEYs, each of which references the PRIMARY KEY of one of the tables for which we want to create this relationship. We already have our books and users tables, so we just need to create the cross-reference table: checkouts.
+
