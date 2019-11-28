@@ -463,8 +463,8 @@ SELECT [table_name.column_name1, table_name.column_name2,..] FROM table_name1
 join_type JOIN table_name2 ON (join_condition);
 ```
 
-	* Column names following  SELECT must be prepended by their table's name.
-	* Only values that match the join condition are added to the join table.
+* Column names following  SELECT must be prepended by their table's name.
+* Only values that match the join condition are added to the join table.
 
 #### Types of Joins
 
@@ -498,14 +498,14 @@ INNER JOIN books ON (books.id = checkouts.book_id);
 	Technique for shortening queries or or returning more meaningful information from queries.
 
 * ```AS``` keyword allows aliasing
-	*  EX: shortening table names in a JOIN clause:
+*  EX: shortening table names in a JOIN clause:
 ```SQL
 SELECT u.full_name, b.title, c.checkout_date
 FROM users AS u
 INNER JOIN checkouts AS c ON (u.id = c.user_id)
 INNER JOIN books AS b ON (b.id = c.book_id);
 ```
-	* Ex: aliasing returned column names for more meaningful query results:
+* Ex: aliasing returned column names for more meaningful query results:
 ```SQL
 SELECT count(id) AS "NUMBER OF BOOKS CHECKED OUT"
 FROM checkouts;
