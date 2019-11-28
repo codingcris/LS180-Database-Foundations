@@ -454,3 +454,67 @@ CREATE TABLE addresses (
 
 >In order to implement this sort of relationship we need to introduce a third, cross-reference, table. This table holds the relationship between the two entities, by having two FOREIGN KEYs, each of which references the PRIMARY KEY of one of the tables for which we want to create this relationship. We already have our books and users tables, so we just need to create the cross-reference table: checkouts.
 
+### SQL Joins
+	JOINs are clauses in SQL statements that link two tables together, usually based on the keys that define the relationship between those two tables. This allows us to query data from rows in different tables.
+    
+* General JOIN syntax:
+```SQL
+SELECT [table_name.column_name1, table_name.column_name2,..] FROM table_name1
+join_type JOIN table_name2 ON (join_condition);
+```
+
+	* Column names following  SELECT must be prepended by their table's name.
+	* Only values that match the join condition are added to the join table.
+
+#### Types of Joins
+
+##### Inner joins
+	The default join type for a JOIN clause, returns a data set with the common elements of the tables.
+    
+##### Left Joins
+	A LEFT JOIN or a LEFT OUTER JOIN takes all the rows from one table, defined as the LEFT table, and joins it with a second table. A LEFT JOIN will always include the rows from the LEFT table, even if there are no matching rows in the table it is JOINed with.
+
+##### Right Joins
+	Same as a left join but the roles of the tables are reversed.
+
+##### Full Joins
+	A FULL JOIN or FULL OUTER JOIN is essentially a combination of LEFT JOIN and RIGHT JOIN. This type of join contains all of the rows from both of the tables. Where the join condition is met, the rows of the two tables are joined, just as in the previous examples we've seen. For any rows on either side of the join where the join condition is not met, the columns for the other table have NULL values for that row.
+
+##### Cross Joins
+	A CROSS JOIN, also known as a Cartesian JOIN, returns all rows from one table crossed with every row from the second table. In other words, the join table of a cross join contains every possible combination of rows from the tables that have been joined. Since it returns all combinations, a CROSS JOIN does not need to match rows using a join condition, therefore it does not have an ON clause.
+
+#### Multiple Joins
+We may join more than two tables together by stringing together JOIN clauses between tables that share a logical relationship with each other.
+
+Ex:
+```SQL
+SELECT users.full_name, books.title, checkouts.checkout_date
+FROM users
+INNER JOIN checkouts ON (users.id = checkouts.user_id)
+INNER JOIN books ON (books.id = checkouts.book_id);
+```
+
+### Aliasing
+	Technique for shortening queries or or returning more meaningful information from queries.
+
+* ```AS``` keyword allows aliasing
+	*  EX: shortening table names in a JOIN clause:
+```SQL
+SELECT u.full_name, b.title, c.checkout_date
+FROM users AS u
+INNER JOIN checkouts AS c ON (u.id = c.user_id)
+INNER JOIN books AS b ON (b.id = c.book_id);
+```
+	* Ex: aliasing returned column names for more meaningful query results:
+```SQL
+SELECT count(id) AS "NUMBER OF BOOKS CHECKED OUT"
+FROM checkouts;
+```
+
+## Further Resources
+* [Bolt](https://sqlbolt.com/)- an interactive online SQL tutorial
+* [PostgreSQL Exercises](https://pgexercises.com/)- online exercises
+* [SQL Fiddle](http://sqlfiddle.com/) - Allows you to setup schema and data conveniently for practice online.
+
+
+
